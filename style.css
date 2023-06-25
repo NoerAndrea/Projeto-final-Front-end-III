@@ -1,0 +1,237 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .card-info {
+    flex-basis: 33.33%;
+    margin-bottom: 20px;
+    display: flex;
+  }
+     
+  .card-info h3,
+  .card-info p {
+    margin: 0;
+  }  
+  
+  #logo{  
+    width: 5%;
+    height: 5%;
+  }
+
+  h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    text-align: center;
+    color: rgb(0, 100, 0);
+    
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .search{
+    margin-bottom: 100px;
+  }
+  
+  #search-container {
+    display: flex;
+    align-items: center;
+    width: 390px;
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #search-input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 0 10px;
+    font-size: 16px;
+  }
+  
+  .search-icon {
+    padding: 0 10px;
+    font-size: 30px;
+    transform: rotate(100deg);
+    color: rgb(0, 100, 0);
+  }
+  #cards{
+    margin-top: 50px;
+    margin-bottom: 330px;
+  }
+  
+  #characters{  
+    margin-top: 50xp; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-left: 250px;
+    padding-right: 350px;
+  }
+  /*card{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+  }*/ 
+  
+  .card-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 2px solid rgb(0, 100, 0);
+    border-radius: 15px; 
+    margin-bottom: 20px;
+    margin-left: 20px;   
+    width: 20%;
+    height: 20%;
+    cursor: pointer;
+    overflow: hidden; 
+  }
+
+  .card-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 15px 15px 0px 0px;
+    -webkit-transition: -webkit-transform .5s ease;
+   transition: transform .5s ease;
+  }
+
+  .card-container:hover img{
+    -webkit-transform: scale(1.1);
+   transform: scale(1.1);
+  }
+
+  .card-container div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-container h3 {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .card-container status,
+  .card-container species {
+    text-align: center;
+    margin: 5px 0;
+  }
+  .div-character{
+    display: grid;
+    justify-content: start;
+    justify-items: start;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+
+  h3{
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  a{
+    text-decoration: none;
+    color: white;
+  }
+  status{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  species{
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  #rickAndMorty{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+  }
+  #footer{
+    height: 400px;
+    background-color: rgb(37, 37, 37);
+  }
+  #information{
+    display: flex;
+    justify-content: center;
+  }
+  #text{
+    color: rgb(0, 100, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    padding-left: 50px;
+    padding-top: 50px;
+  }
+
+  #total-personagens{
+    color: rgb(255, 255, 255);
+  }
+
+  #total-locations{
+    color: rgb(255, 255, 255);
+  }
+
+  #total-episode{
+    color: rgb(255, 255, 255);
+  }
+
+  #identification{
+      text-align: center;
+      display: flex;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      color: rgb(0, 100, 0);
+      align-items: stretch;
+      justify-content: center;
+      margin-top: 250px;
+  }
+  #className{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    color: white;
+  }
+  
+  .background{
+    background-color: rgb(37, 37, 37);
+  }
+  .backgroundImg{   
+    background-image: url(./images/FUNDO_2.jpg);
+    background-position: center bottom;
+    background-size:auto;
+    background-repeat: no-repeat;
+  }
+
+  .animation{
+    position: absolute; 
+	  left: 290px;  
+	  top: 2400px;
+    animation: fadeIn 2s ease-in-out infinite;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .page-link:hover {
+    background-color: #8b8b8b;
+    transition: 0.5s;
+    opacity: 0.2;
+  }
+
+
+  
+
+  

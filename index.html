@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick and Morty API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <nav>
+      <img id="logo" src="./images/RICK_MORTY_ICON.png" alt="Logo Rick and Morty">
+    </nav>
+    <main>      
+        <!--titulo e pesquisa -->
+        <div class="search">
+          <section >
+            <h1>API de Rick and Morty</h1>
+            <div id="search-container">
+              <input type="text" id="search-input" placeholder="Pesquise">
+              <span class="search-icon">&#9740;</span>
+            </div>
+          </section>
+        </div>
+
+      <section class="background">
+        <div class="backgroundImg">
+
+        <div class="animation"><img src="./images/Rick-And-Morty-titulo.png" width="600" height="390" alt="titulo"></div>
+
+          <!--imagens -->
+          <section>
+            <div id="cards">
+              <div id="characters"></div>
+            </div>
+          </section>
+          
+         <!-- Modal -->
+            <div class="modal" id="characterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="characterName"></h5> 
+                  </div>
+                  <div class="modal-body">
+
+                        <img id="characterImg" alt="Imagem personagem">
+
+                        <p id="characterStatus"></p>
+                        <p id="characterSpecies"></p>
+                        <p id="characterLocationName"></p>
+                        <p id="characterOrigin"></p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="closeButton">Voltar</button>
+                  </div>
+                </div>
+              </div>
+            </div>            
+
+            <!--paginação
+            <section id="pagination">      
+              <div id="numberPages"></div>
+              <button onclick="previousPage()">Anterior</button>
+              <button onclick="nextPage()">Próximo</button>
+            </section>-->
+          
+            <div class="container justify-content-center mt-50">  
+              <div class="row p-2" style="margin-top: 200px;">        
+                    <ul class="pagination">
+                      <div class="col-sm" style="margin: 5px">
+                        <li class="page-item">            
+                          <a class="page-link" href="#"><button type="button" class="btn" onclick="previousPage()">Anterior</button></a>
+                        </li>
+                      </div>
+
+                      <!--<div class="col-sm">
+                        <li class="page-item" id="numberPages"></li>    
+                      </div>-->
+
+                      <div class="col-sm" style="margin: 5px">
+                        <li class="page-item">
+                          <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><button type="button" class="btn" onclick="nextPage()">Próximo</button></a>
+                        </li>
+                      </div>
+                    </ul>        
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div id="footer">
+          <div id="information">
+          <p id="text">PERSONAGENS:<span id="total-personagens"></span></p>
+          <p id="text">LOCALIZAÇÕES:<span id="total-locations"></span></p>
+          <p id="text">EPISÓDIOS:<span id="total-episode"></span></p>
+        </div>
+          <p id="identification">Desenvolvido por: <span id="className"> Andrea Noer </span> em 2023.</p>       
+        </div>
+        
+      </footer>
+  
+    </main>
+  
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      
+        window.onload = function () {
+        fetchCharacters(name);
+      };
+  
+      const searchInput = document.getElementById('search-input');
+  
+      let page = 1;
+      let totalPages = 0;
+  
+      function fetchCharacters(name) {
+        let charactersContainer = document.getElementById('characters');
+        charactersContainer.innerHTML = "";
+  
+        const url = `https://rickandmortyapi.com/api/character/?name=${name}&page=${page}`;
+  
+        axios
+          .get(url)
+          .then(response => {
+
+        //informação rodapé
+          const totalPersonagens = response.data.info.count;
+          document.getElementById("total-personagens").innerHTML = totalPersonagens;
+
+            const characters = response.data.results;
+            console.log(characters);
+  
+            if (characters.length === 0) {
+              charactersContainer.textContent = 'Nenhum personagem encontrado.';
+            } else {
+              characters.forEach((character, index) => {
+  
+              const characterDiv = document.createElement('card');
+              characterDiv.classList.add('card-container');
+  
+              const name = document.createElement('h3');              
+              const image = document.createElement('img');
+              const status = document.createElement('status');
+              const species = document.createElement('species');
+              const locationName = document.createElement('location.name');
+              const origin = document.createElement('origin.name');      
+
+              // Inserindo propriedades
+              name.innerHTML = `<a href="#" text-decoration: none>${character.name}</a>`;;
+              image.src = character.image;
+              status.textContent = `Status: ${character.status}`;
+              species.textContent = `Species: ${character.species}`;
+              locationName.textContent = `Location: ${character.location.name}`;
+              origin.textContent = `Origin: ${character.origin.name}`;
+       
+              // Criando as divs
+              const imageDiv = document.createElement('div');
+              const contentDiv = document.createElement('div');
+              contentDiv.classList.add('div-character');
+  
+              // Adicionando os elementos na estrutura correta
+              imageDiv.appendChild(image);
+              contentDiv.appendChild(name);
+              contentDiv.appendChild(status);
+              contentDiv.appendChild(species);
+
+              // Adicionando as divs na div principal
+              characterDiv.appendChild(imageDiv);
+              characterDiv.appendChild(contentDiv);
+  
+              // Puxando a div principal para o container
+              charactersContainer.appendChild(characterDiv);
+
+              //Criando modal
+              const cardContainers = document.querySelectorAll('.card-container');
+              const characterModal = document.getElementById('characterModal');
+
+              const characterImg = document.getElementById('characterImg');
+
+              const characterName = document.getElementById('characterName');
+              const characterStatus = document.getElementById('characterStatus');
+              const characterSpecies = document.getElementById('characterSpecies');
+              const characterLocation = document.getElementById('characterLocationName');
+              const characterOrigin = document.getElementById('characterOrigin');
+
+              const closeButton = document.getElementById('closeButton');
+
+              cardContainers.forEach((cardContainer, index) => {
+                cardContainer.addEventListener('click', () => {
+                  const character = characters[index];
+
+                  characterImg.src = character.image;
+
+                  characterName.textContent = character.name;
+                  characterStatus.textContent = `Status: ${character.status}`;
+                  characterSpecies.textContent = `Species: ${character.species}`; 
+                  characterLocation.textContent = `Location: ${character.location.name}`;
+                  characterOrigin.textContent = `Origin: ${character.origin.name}`;
+                  characterModal.style.display = 'block';
+                });
+              });
+
+              closeButton.addEventListener('click', () => {
+                characterModal.style.display = 'none';
+              });                
+              });
+            }
+  
+            totalPages = Math.floor(response.data.info.pages);
+            addNumbersPages();
+  
+            //informação rodapé
+            const totalCharacters = response.data.info.count;
+            document.getElementById("total-characters").innerHTML = totalCharacters;
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+  
+      searchInput.addEventListener('input', () => {
+        const searchValue = searchInput.value;
+        page = 1; // Resetar a página para 1 ao realizar uma nova pesquisa
+        fetchCharacters(searchValue);
+      });
+
+      function previousPage() {
+        if (page > 1) {
+          page--;
+          fetchCharacters(searchInput.value);
+        }
+      }
+  
+      function nextPage() {
+        if (page < totalPages) {
+          page++;
+          fetchCharacters(searchInput.value);
+        }
+      }
+  
+      function addNumbersPages() {
+        let containerPagination = document.getElementById("numberPages");
+        containerPagination.innerHTML = "";
+  
+        for (let i = 1; i <= totalPages; i++) {
+          //<div class="col-2">
+            //<li class="page-item">
+                //<a class="page-link" href="#"><button type="button" class="btn" id="numberPages"></button></a>
+              //</li>    
+            //</div>
+
+          containerPagination.innerHTML += `
+          <div class="col-sm">
+            <div class="row align-items-start">
+              <div class="col">
+                <li class="page-item">
+                  <a class="page-link" href="#">
+                    <button type="button" class="btn" onclick="alterNumberPage(${i})">${i}</button></a>
+                </li>
+              </div>
+          </div>`;
+        }
+      }   
+  
+      //botão de número de paginas
+      function alterNumberPage(newNumberPage){
+        page = newNumberPage;
+        fetchCharacters(searchInput.value);
+      }
+  
+      const rota = `https://rickandmortyapi.com/api/location`;
+  
+      axios
+          .get(rota)
+          .then(response => {
+            //informação rodapé
+            const totalLocations = response.data.info.count;
+            document.getElementById("total-locations").innerHTML = totalLocations;
+          })
+  
+      const address = `https://rickandmortyapi.com/api/episode`;
+  
+      axios
+      .get(address)
+      .then(response => {
+        //informação rodapé
+        const totalEpisode = response.data.info.count;
+        document.getElementById("total-episode").innerHTML = totalEpisode;
+      })
+  
+    </script>
+  </body>
+</html>
